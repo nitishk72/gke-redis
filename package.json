@@ -1,0 +1,19 @@
+{
+  "name": "gke-redis-app",
+  "description": "sample app",
+  "main": "index.js",
+  "version": "1.0.0",
+  "author": "Nitish Kumar Singh<nitishk72@gmail.com>",
+  "license": "ISC",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.0.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -1,0 +1,3 @@
+# GKE Redis
+
+Sample App
