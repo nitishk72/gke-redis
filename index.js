@@ -1,7 +1,7 @@
 const redis = require('redis');
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const axios = require("axios");
 // ports
 const REDISHOST = process.env.REDISHOST || 'localhost';
 const REDISPORT = process.env.REDISPORT || 6379;
@@ -44,5 +44,30 @@ app.get('/api/user/:uid', function (req, res) {
     return res.send({ value, isNew })
   });
 });
+
+app.get("/api/playerStats/:apikey&:pid", async (req, res) => {
+  try {
+    const { pid, apikey } = req.params;
+    return redis_client.get(pid,async function(err, val){
+      let value = val;
+      let isNew = 'from redis';
+      if(!value){
+        const url = `https://cricapi.com/api/playerStats?${apikey}&${pid}`
+        const playerInfo = await axios.get(url);
+        const playerInfoData = playerInfo.data;
+        value = JSON.stringify(playerInfoData);
+        redis_client.setex(pid,30,value);
+        isNew = 'not from redis';
+      }
+      const data = JSON.parse(value);
+      return res.send({data, isNew});
+            
+    })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+});
+
 
 app.listen(PORT);
