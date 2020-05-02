@@ -48,8 +48,8 @@ $ git clone https://github.com/nitishk72/gke-redis
 $ cd gke-redis
 $ cp gke_deployment/Dockerfile .
 $ export PROJECT_ID="$(gcloud config get-value project -q)"
-$ docker build -t gcr.io/${PROJECT_ID}/random-app:v3 .
-$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v3
+$ docker build -t gcr.io/${PROJECT_ID}/random-app:v4 .
+$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v4
 ```
 
 ### Kubernetes deployment
@@ -59,8 +59,6 @@ $ export REDISHOST_IP=10.78.66.67
 $ kubectl create configmap redishost --from-literal=REDISHOST=${REDISHOST_IP}
 $ kubectl get configmaps redishost -o yaml
 $ kubectl apply -f gke_deployment/random-app.yaml
-$ kubectl get service random-app
-
 ```
 
 ## Check Deployment
