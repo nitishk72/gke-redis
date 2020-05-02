@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: random-app
-        image: "gcr.io/cloudorbit/random-app:v1"
+        image: "gcr.io/cloudorbit/random-app:v2"
         env:
         - name: REDISHOST
           valueFrom:

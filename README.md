@@ -48,8 +48,8 @@ $ git clone https://github.com/nitishk72/gke-redis
 $ cd gke-redis
 $ cp gke_deployment/Dockerfile .
 $ export PROJECT_ID="$(gcloud config get-value project -q)"
-$ docker build -t gcr.io/${PROJECT_ID}/random-app:v1 .
-$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v1
+$ docker build -t gcr.io/${PROJECT_ID}/random-app:v2 .
+$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v2
 ```
 
 ### Kubernetes deployment
