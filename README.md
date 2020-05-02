@@ -32,7 +32,7 @@ From above we oly want `reservedIpRange: 10.78.66.64/29`
 
 You can see this `TARGETS="10.78.66.64" ./install.sh` line is having reserved IP from the earlier step.
 
-```
+```bash
 $ git clone https://github.com/bowei/k8s-custom-iptables.git
 $ cd k8s-custom-iptables/
 $ TARGETS="10.78.66.64" ./install.sh
@@ -43,7 +43,7 @@ $ cd ..
 
 ## Build docker image and push to Google repository 
 
-```
+```bash
 $ git clone https://github.com/nitishk72/gke-redis
 $ cd gke-redis
 $ cp gke_deployment/Dockerfile .
@@ -54,7 +54,7 @@ $ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v4
 
 ### Kubernetes deployment
 
-```
+```bash
 $ export REDISHOST_IP=10.78.66.67
 $ kubectl create configmap redishost --from-literal=REDISHOST=${REDISHOST_IP}
 $ kubectl get configmaps redishost -o yaml
@@ -62,11 +62,26 @@ $ kubectl apply -f gke_deployment/random-app.yaml
 ```
 
 ## Check Deployment
-```
+
+```bash
 $ kubectl get service random-app
 
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE
 random-app   LoadBalancer   10.110.13.231   35.226.173.161   80:30378/TCP   60s
 
 $ curl http://35.226.173.161
+```
+
+
+## New deployment
+
+```bash
+$ export PROJECT_ID="$(gcloud config get-value project -q)"
+$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v4
+$ gcloud docker -- push gcr.io/${PROJECT_ID}/random-app:v4
+```
+
+```bash
+$ export REDISHOST_IP=10.78.66.67
+$ kubectl apply -f gke_deployment/random-app.yaml
 ```

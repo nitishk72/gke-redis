@@ -7,6 +7,8 @@ const REDISHOST = process.env.REDISHOST || 'localhost';
 const REDISPORT = process.env.REDISPORT || 6379;
 const PORT = process.env.PORT || 8080;
 const VALID_TILL_SECONDS = 60;
+const VERSION_NUMBER = process.env.VERSION || 4;
+
 const redis_client = redis.createClient(REDISPORT, REDISHOST);
 redis_client.on('error', (err) => console.error('ERR:REDIS:', err));
 
@@ -16,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-  res.send("App is running ");
+  res.send(`App is running ${VERSION_NUMBER}`);
 })
 
 app.get('/api/user/:uid', function (req, res) {
